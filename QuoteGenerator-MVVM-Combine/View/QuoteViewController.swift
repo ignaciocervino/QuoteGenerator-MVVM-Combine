@@ -37,4 +37,3 @@ final class QuoteViewController: UIViewController {
         ])
     }
 }
-
