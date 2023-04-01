@@ -18,7 +18,7 @@ class QuoteView: UIView {
         return VStackView
     }()
     
-    private lazy var quoteLbl: UILabel = {
+    private(set) lazy var quoteLbl: UILabel = {
         let lbl = UILabel()
         lbl.font = .systemFont(ofSize: 24)
         lbl.textAlignment = .center
@@ -27,7 +27,7 @@ class QuoteView: UIView {
         return lbl
     }()
     
-    private lazy var refreshBtn: UIButton = {
+    private(set) lazy var refreshBtn: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .blue
         button.setTitle("Refresh", for: .normal)

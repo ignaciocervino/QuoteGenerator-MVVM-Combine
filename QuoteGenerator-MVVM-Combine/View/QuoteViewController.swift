@@ -20,14 +20,25 @@ final class QuoteViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        view = quoteView
         view.backgroundColor = .white
-        buildViewHierarchy()
     }
     
-    private func buildViewHierarchy() {
-        view.addSubview(quoteView)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupConstraints()
+        setupTargets()
+    }
+}
+
+extension QuoteViewController: ViewModelBindable {
+    
+}
+
+extension QuoteViewController: ViewConfigurable {
+    
+    func setupConstraints() {
         quoteView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             quoteView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -35,5 +46,16 @@ final class QuoteViewController: UIViewController {
             quoteView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             quoteView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    func setupTargets() {
+        quoteView.refreshBtn.addTarget(self, action: #selector(refreshClick), for: .touchUpInside)
+    }
+}
+
+// MARK: - Targets
+private extension QuoteViewController {
+    @objc func refreshClick() {
+        //viewModel.refreshClick()
     }
 }
