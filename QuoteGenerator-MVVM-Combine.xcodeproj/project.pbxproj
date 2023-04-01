@@ -13,6 +13,8 @@
 		E272C03129D6A69A0083AFF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E272C02F29D6A69A0083AFF4 /* LaunchScreen.storyboard */; };
 		E272C03D29D6A7BF0083AFF4 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E272C03B29D6A7BF0083AFF4 /* QuoteView.swift */; };
 		E272C03E29D6A7BF0083AFF4 /* QuoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E272C03C29D6A7BF0083AFF4 /* QuoteViewController.swift */; };
+		E272C04129D894930083AFF4 /* ViewConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E272C04029D894930083AFF4 /* ViewConfigurable.swift */; };
+		E272C04329D895B00083AFF4 /* ViewModelBindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E272C04229D895B00083AFF4 /* ViewModelBindable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		E272C03229D6A69A0083AFF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E272C03B29D6A7BF0083AFF4 /* QuoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
 		E272C03C29D6A7BF0083AFF4 /* QuoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteViewController.swift; sourceTree = "<group>"; };
+		E272C04029D894930083AFF4 /* ViewConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfigurable.swift; sourceTree = "<group>"; };
+		E272C04229D895B00083AFF4 /* ViewModelBindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelBindable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +75,18 @@
 			children = (
 				E272C03B29D6A7BF0083AFF4 /* QuoteView.swift */,
 				E272C03C29D6A7BF0083AFF4 /* QuoteViewController.swift */,
+				E272C03F29D894720083AFF4 /* Protocols */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E272C03F29D894720083AFF4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				E272C04029D894930083AFF4 /* ViewConfigurable.swift */,
+				E272C04229D895B00083AFF4 /* ViewModelBindable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +162,8 @@
 				E272C02929D6A6980083AFF4 /* ViewController.swift in Sources */,
 				E272C02529D6A6980083AFF4 /* AppDelegate.swift in Sources */,
 				E272C03D29D6A7BF0083AFF4 /* QuoteView.swift in Sources */,
+				E272C04329D895B00083AFF4 /* ViewModelBindable.swift in Sources */,
+				E272C04129D894930083AFF4 /* ViewConfigurable.swift in Sources */,
 				E272C03E29D6A7BF0083AFF4 /* QuoteViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
