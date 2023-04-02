@@ -6,13 +6,17 @@
 //
 
 import UIKit
+import Combine
 
 final class QuoteViewController: UIViewController {
     
     private let quoteView: QuoteView
+    private let viewModel: QuoteViewModelProtocol
+    private var cancellables = Set<AnyCancellable>()
     
-    init(quoteView: QuoteView) {
+    init(quoteView: QuoteView, viewModel: QuoteViewModelProtocol) {
         self.quoteView = quoteView
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -29,11 +33,28 @@ final class QuoteViewController: UIViewController {
         super.viewDidLoad()
         setupConstraints()
         setupTargets()
+        bindViewModelToView()
     }
 }
 
 extension QuoteViewController: ViewModelBindable {
-    
+    func bindViewModelToView() {
+        viewModel.quoteResultPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                // handle completion
+            }, receiveValue: { [unowned self] quote in
+                self.quoteView.quoteLbl.text = quote.content
+            })
+            .store(in: &cancellables)
+        
+        viewModel.toggleRefreshButtonPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] in
+                self.quoteView.refreshBtn.isEnabled = $0
+            }
+            .store(in: &cancellables)
+    }
 }
 
 extension QuoteViewController: ViewConfigurable {
@@ -56,6 +77,6 @@ extension QuoteViewController: ViewConfigurable {
 // MARK: - Targets
 private extension QuoteViewController {
     @objc func refreshClick() {
-        //viewModel.refreshClick()
+        viewModel.refreshButtonSelected()
     }
 }

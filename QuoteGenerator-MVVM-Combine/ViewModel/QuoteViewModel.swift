@@ -6,7 +6,20 @@
 //
 
 import Foundation
+import Combine
 
-class QuoteViewModel: QuoteViewModelProtocol {
+final class QuoteViewModel {
+    private let quoteService: QuoteServicing
+    let quoteResultPublisher: AnyPublisher<Quote, Error>
+    let toggleRefreshButtonPublisher: AnyPublisher<Bool, Never>
     
+    init(quoteService: QuoteServicing = QuoteService()) {
+        self.quoteService = quoteService
+    }
+}
+
+extension QuoteViewModel: QuoteViewModelProtocol {
+    func refreshButtonSelected() {
+        
+    }
 }
