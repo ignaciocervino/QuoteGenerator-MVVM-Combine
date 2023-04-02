@@ -42,7 +42,13 @@ extension QuoteViewController: ViewModelBindable {
         viewModel.quoteResultPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
-                // handle completion
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.quoteView.quoteLbl.text = "Unknown"
+                    assertionFailure(error.localizedDescription)
+                }
             }, receiveValue: { [unowned self] quote in
                 self.quoteView.quoteLbl.text = quote.content
             })
@@ -50,9 +56,7 @@ extension QuoteViewController: ViewModelBindable {
         
         viewModel.toggleRefreshButtonPublisher
             .receive(on: DispatchQueue.main)
-            .sink { [unowned self] in
-                self.quoteView.refreshBtn.isEnabled = $0
-            }
+            .assign(to: \.isEnabled, on: quoteView.refreshBtn)
             .store(in: &cancellables)
     }
 }
