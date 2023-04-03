@@ -6,13 +6,18 @@
 //
 
 import UIKit
+import Combine
 
 final class QuoteViewController: UIViewController {
-    
+    // MARK: Properties
     private let quoteView: QuoteView
+    private let viewModel: QuoteViewModelProtocol
+    private var cancellables = Set<AnyCancellable>()
     
-    init(quoteView: QuoteView) {
+    // MARK: Initializer
+    init(quoteView: QuoteView, viewModel: QuoteViewModelProtocol) {
         self.quoteView = quoteView
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -20,6 +25,7 @@ final class QuoteViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Override Functions
     override func loadView() {
         view = quoteView
         view.backgroundColor = .white
@@ -29,13 +35,41 @@ final class QuoteViewController: UIViewController {
         super.viewDidLoad()
         setupConstraints()
         setupTargets()
+        bindViewModelToView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.viewDidAppear()
     }
 }
 
+// MARK: - ViewModelBindable
 extension QuoteViewController: ViewModelBindable {
-    
+    func bindViewModelToView() {
+        viewModel.quoteResultPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.quoteView.quoteLbl.text = "Unknown"
+                    assertionFailure(error.localizedDescription)
+                }
+            }, receiveValue: { [unowned self] quote in
+                self.quoteView.quoteLbl.text = quote.content
+            })
+            .store(in: &cancellables)
+        
+        viewModel.toggleRefreshButtonPublisher
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isEnabled, on: quoteView.refreshBtn)
+            .store(in: &cancellables)
+    }
 }
 
+// MARK: - ViewConfigurable
 extension QuoteViewController: ViewConfigurable {
     
     func setupConstraints() {
@@ -56,6 +90,6 @@ extension QuoteViewController: ViewConfigurable {
 // MARK: - Targets
 private extension QuoteViewController {
     @objc func refreshClick() {
-        //viewModel.refreshClick()
+        viewModel.refreshButtonSelected()
     }
 }
