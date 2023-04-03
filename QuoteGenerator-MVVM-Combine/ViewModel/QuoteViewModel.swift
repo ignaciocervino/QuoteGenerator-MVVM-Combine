@@ -9,12 +9,15 @@ import Foundation
 import Combine
 
 final class QuoteViewModel {
+    // MARK: Propierties
     private let quoteService: QuoteServicing
     private var cancellables = Set<AnyCancellable>()
+    
     // MARK: Outputs
     let quoteResultPublisher: PassthroughSubject<Quote, Error>
     let toggleRefreshButtonPublisher: PassthroughSubject<Bool, Never>
     
+    // MARK: Initializer
     init(quoteService: QuoteServicing = QuoteService()) {
         self.quoteService = quoteService
         self.quoteResultPublisher = .init()
@@ -22,7 +25,7 @@ final class QuoteViewModel {
     }
 }
 
-// MARK: Inputs
+// MARK: - Inputs
 extension QuoteViewModel: QuoteViewModelProtocol {
     func refreshButtonSelected() {
         handleGetRandomQuote()
@@ -33,7 +36,7 @@ extension QuoteViewModel: QuoteViewModelProtocol {
     }
 }
 
-// MARK: Helper Functions
+// MARK: - Helper Functions
 extension QuoteViewModel {
     private func handleGetRandomQuote() {
         quoteService.getRandomQuote().sink { [weak self] completion in

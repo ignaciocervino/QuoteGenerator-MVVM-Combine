@@ -8,10 +8,10 @@
 import UIKit
 
 class QuoteView: UIView {
+    // MARK: Properties
     private lazy var stackView: UIStackView = {
         let VStackView = UIStackView()
         VStackView.axis = .vertical
-        VStackView.alignment = .center
         VStackView.spacing = 24
         VStackView.alignment = .fill
         return VStackView
@@ -34,20 +34,27 @@ class QuoteView: UIView {
         return button
     }()
     
+    // MARK: Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+}
+
+// MARK: - Helper functions
+extension QuoteView {
     private func setupView() {
         stackView.addArrangedSubview(quoteLbl)
         stackView.addArrangedSubview(refreshBtn)
         addSubview(stackView)
-        
+    }
+    
+    private func setupConstraints() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         quoteLbl.translatesAutoresizingMaskIntoConstraints = false
         refreshBtn.translatesAutoresizingMaskIntoConstraints = false

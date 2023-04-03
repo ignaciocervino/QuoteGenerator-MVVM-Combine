@@ -9,11 +9,12 @@ import UIKit
 import Combine
 
 final class QuoteViewController: UIViewController {
-    
+    // MARK: Properties
     private let quoteView: QuoteView
     private let viewModel: QuoteViewModelProtocol
     private var cancellables = Set<AnyCancellable>()
     
+    // MARK: Initializer
     init(quoteView: QuoteView, viewModel: QuoteViewModelProtocol) {
         self.quoteView = quoteView
         self.viewModel = viewModel
@@ -24,6 +25,7 @@ final class QuoteViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Override Functions
     override func loadView() {
         view = quoteView
         view.backgroundColor = .white
@@ -42,6 +44,7 @@ final class QuoteViewController: UIViewController {
     }
 }
 
+// MARK: - ViewModelBindable
 extension QuoteViewController: ViewModelBindable {
     func bindViewModelToView() {
         viewModel.quoteResultPublisher
@@ -66,6 +69,7 @@ extension QuoteViewController: ViewModelBindable {
     }
 }
 
+// MARK: - ViewConfigurable
 extension QuoteViewController: ViewConfigurable {
     
     func setupConstraints() {

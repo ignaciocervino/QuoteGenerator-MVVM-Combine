@@ -27,7 +27,6 @@ class QuoteService: QuoteServicing {
             }
             .map({ $0.data })
             .decode(type: Quote.self, decoder: JSONDecoder())
-            .retry(2)
             .eraseToAnyPublisher()
     }
 }
