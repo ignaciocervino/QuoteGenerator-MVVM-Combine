@@ -10,8 +10,8 @@ import Combine
 
 final class QuoteServiceMock: QuoteServicing {
     var value: AnyPublisher<Quote, Error>?
-    
-    func getRandomQuote() -> AnyPublisher<Quote, Error> {
+
+    func getRandomQuote(from endpointURL: String) -> AnyPublisher<Quote, Error> {
         return value ?? Empty().eraseToAnyPublisher()
     }
 }

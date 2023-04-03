@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E263C03429DA77EA00F7B1A5 /* QuoteViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E263C03329DA77EA00F7B1A5 /* QuoteViewModelTests.swift */; };
 		E263C03C29DA7DEB00F7B1A5 /* QuoteServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E263C03B29DA7DEB00F7B1A5 /* QuoteServiceMock.swift */; };
+		E263C04429DB5F7100F7B1A5 /* QuoteServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E263C04329DB5F7100F7B1A5 /* QuoteServiceError.swift */; };
 		E272C02529D6A6980083AFF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E272C02429D6A6980083AFF4 /* AppDelegate.swift */; };
 		E272C02E29D6A69A0083AFF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E272C02D29D6A69A0083AFF4 /* Assets.xcassets */; };
 		E272C03D29D6A7BF0083AFF4 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E272C03B29D6A7BF0083AFF4 /* QuoteView.swift */; };
@@ -36,6 +37,7 @@
 		E263C03129DA77EA00F7B1A5 /* QuoteGeneratorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuoteGeneratorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E263C03329DA77EA00F7B1A5 /* QuoteViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteViewModelTests.swift; sourceTree = "<group>"; };
 		E263C03B29DA7DEB00F7B1A5 /* QuoteServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteServiceMock.swift; sourceTree = "<group>"; };
+		E263C04329DB5F7100F7B1A5 /* QuoteServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteServiceError.swift; sourceTree = "<group>"; };
 		E272C02129D6A6980083AFF4 /* QuoteGenerator-MVVM-Combine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "QuoteGenerator-MVVM-Combine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E272C02429D6A6980083AFF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E272C02D29D6A69A0083AFF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			children = (
 				E272C04529D8CC540083AFF4 /* QuoteServicing.swift */,
 				E272C04729D8CCCA0083AFF4 /* QuoteService.swift */,
+				E263C04329DB5F7100F7B1A5 /* QuoteServiceError.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				E272C04629D8CC540083AFF4 /* QuoteServicing.swift in Sources */,
 				E272C04129D894930083AFF4 /* ViewConfigurable.swift in Sources */,
 				E272C03E29D6A7BF0083AFF4 /* QuoteViewController.swift in Sources */,
+				E263C04429DB5F7100F7B1A5 /* QuoteServiceError.swift in Sources */,
 				E272C05029D8D5050083AFF4 /* QuoteViewModelProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

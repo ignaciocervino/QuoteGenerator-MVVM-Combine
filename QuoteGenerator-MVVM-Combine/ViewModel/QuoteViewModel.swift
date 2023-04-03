@@ -8,6 +8,10 @@
 import Foundation
 import Combine
 
+private enum Constants {
+    static let endpointURL = "https://api.quotable.io/random"
+}
+
 final class QuoteViewModel {
     // MARK: Propierties
     private let quoteService: QuoteServicing
@@ -18,10 +22,10 @@ final class QuoteViewModel {
     let toggleRefreshButtonPublisher: PassthroughSubject<Bool, Never>
     
     // MARK: Initializer
-    init(quoteService: QuoteServicing = QuoteService()) {
+    init(quoteService: QuoteServicing) {
         self.quoteService = quoteService
-        self.quoteResultPublisher = .init()
-        self.toggleRefreshButtonPublisher = .init()
+        self.quoteResultPublisher = PassthroughSubject<Quote, Error>()
+        self.toggleRefreshButtonPublisher = PassthroughSubject<Bool, Never>()
     }
 }
 
@@ -41,7 +45,7 @@ extension QuoteViewModel: QuoteViewModelProtocol {
 // MARK: - Helper Functions
 extension QuoteViewModel {
     private func handleGetRandomQuote() {
-        quoteService.getRandomQuote().sink { [weak self] completion in
+        quoteService.getRandomQuote(from: Constants.endpointURL).sink { [weak self] completion in
             if case .failure(let error) = completion {
                 self?.quoteResultPublisher.send(completion: .failure(error))
             }

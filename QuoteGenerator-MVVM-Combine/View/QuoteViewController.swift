@@ -10,12 +10,12 @@ import Combine
 
 final class QuoteViewController: UIViewController {
     // MARK: Properties
-    private let quoteView: QuoteView
-    private let viewModel: QuoteViewModelProtocol
+    let quoteView: QuoteViewProtocol
+    let viewModel: QuoteViewModelProtocol
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: Initializer
-    init(quoteView: QuoteView, viewModel: QuoteViewModelProtocol) {
+    init(quoteView: QuoteViewProtocol, viewModel: QuoteViewModelProtocol) {
         self.quoteView = quoteView
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -27,7 +27,7 @@ final class QuoteViewController: UIViewController {
     
     // MARK: Override Functions
     override func loadView() {
-        view = quoteView
+        view = quoteView as? UIView
         view.backgroundColor = .white
     }
     
@@ -73,6 +73,9 @@ extension QuoteViewController: ViewModelBindable {
 extension QuoteViewController: ViewConfigurable {
     
     func setupConstraints() {
+        guard let quoteView = quoteView as? UIView else {
+            fatalError("quoteView is not a UIView")
+        }
         quoteView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             quoteView.topAnchor.constraint(equalTo: view.topAnchor),
