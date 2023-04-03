@@ -28,10 +28,12 @@ final class QuoteViewModel {
 // MARK: - Inputs
 extension QuoteViewModel: QuoteViewModelProtocol {
     func refreshButtonSelected() {
+        toggleRefreshButton(isEnabled: false)
         handleGetRandomQuote()
     }
     
     func viewDidAppear() {
+        toggleRefreshButton(isEnabled: false)
         handleGetRandomQuote()
     }
 }
@@ -45,7 +47,12 @@ extension QuoteViewModel {
             }
         } receiveValue: { [weak self] quote in
             self?.quoteResultPublisher.send(quote)
+            self?.toggleRefreshButton(isEnabled: true)
         }
         .store(in: &cancellables)
+    }
+    
+    private func toggleRefreshButton(isEnabled: Bool) {
+        toggleRefreshButtonPublisher.send(isEnabled)
     }
 }
