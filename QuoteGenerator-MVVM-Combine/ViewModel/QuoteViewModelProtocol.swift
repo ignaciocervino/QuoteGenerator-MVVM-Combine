@@ -10,11 +10,12 @@ import Combine
 
 protocol QuoteViewModelInputs {
     func refreshButtonSelected()
+    func viewDidAppear()
 }
 
 protocol QuoteViewModelOutputs {
-    var quoteResultPublisher: AnyPublisher<Quote, Error> { get }
-    var toggleRefreshButtonPublisher: AnyPublisher<Bool, Never> { get }
+    var quoteResultPublisher: PassthroughSubject<Quote, Error> { get }
+    var toggleRefreshButtonPublisher: PassthroughSubject<Bool, Never> { get }
 }
 
 protocol QuoteViewModelProtocol: QuoteViewModelInputs, QuoteViewModelOutputs {}

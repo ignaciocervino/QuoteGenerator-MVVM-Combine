@@ -13,7 +13,6 @@ class QuoteView: UIView {
         VStackView.axis = .vertical
         VStackView.alignment = .center
         VStackView.spacing = 24
-        VStackView.distribution = .fillEqually
         VStackView.alignment = .fill
         return VStackView
     }()

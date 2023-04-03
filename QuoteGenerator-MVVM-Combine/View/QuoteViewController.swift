@@ -35,6 +35,11 @@ final class QuoteViewController: UIViewController {
         setupTargets()
         bindViewModelToView()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.viewDidAppear()
+    }
 }
 
 extension QuoteViewController: ViewModelBindable {
