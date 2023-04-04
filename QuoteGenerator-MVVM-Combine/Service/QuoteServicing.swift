@@ -9,5 +9,5 @@ import Foundation
 import Combine
 
 protocol QuoteServicing {
-    func getRandomQuote() -> AnyPublisher<Quote, Error>
+    func getRandomQuote(from endpointURL: String) -> AnyPublisher<Quote, Error>
 }

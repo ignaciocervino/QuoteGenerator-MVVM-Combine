@@ -14,7 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let quoteView = QuoteView()
-        let quoteViewModel = QuoteViewModel()
+        let quoteService = QuoteService()
+        let quoteViewModel = QuoteViewModel(quoteService: quoteService)
         let quoteVC = QuoteViewController(quoteView: quoteView, viewModel: quoteViewModel)
         
         window = UIWindow(frame: UIScreen.main.bounds)

@@ -7,7 +7,12 @@
 
 import UIKit
 
-class QuoteView: UIView {
+protocol QuoteViewProtocol {
+    var quoteLbl: UILabel { get }
+    var refreshBtn: UIButton { get }
+}
+
+class QuoteView: UIView, QuoteViewProtocol {
     // MARK: Properties
     private lazy var stackView: UIStackView = {
         let VStackView = UIStackView()
@@ -35,29 +40,23 @@ class QuoteView: UIView {
     }()
     
     // MARK: Initializer
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
+    convenience init() {
+        self.init(frame: .zero)
+        buildViewHierarchy()
         setupConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 
-// MARK: - Helper functions
-extension QuoteView {
-    private func setupView() {
+// MARK: View Configurable
+extension QuoteView: ViewConfigurable {
+    func buildViewHierarchy() {
         stackView.addArrangedSubview(quoteLbl)
         stackView.addArrangedSubview(refreshBtn)
         addSubview(stackView)
     }
     
-    private func setupConstraints() {
+    func setupConstraints() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        quoteLbl.translatesAutoresizingMaskIntoConstraints = false
-        refreshBtn.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),

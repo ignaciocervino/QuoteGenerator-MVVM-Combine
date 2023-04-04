@@ -8,17 +8,10 @@
 import Foundation
 import Combine
 
-private enum Constants {
-    static let endpointURL = "https://api.quotable.io/random"
-    static let domain = "ignacio.cervino.QuoteGenerator-MVVM-Combine"
-    static let invalidURL = "Invalid URL"
-}
-
 class QuoteService: QuoteServicing {
-    func getRandomQuote() -> AnyPublisher<Quote, Error> {
-        guard let url = URL(string: Constants.endpointURL) else {
-            let error = NSError(domain: Constants.domain, code: -1, userInfo: [NSLocalizedDescriptionKey: Constants.invalidURL])
-            return Fail(error: error).eraseToAnyPublisher()
+    func getRandomQuote(from endpointURL: String) -> AnyPublisher<Quote, Error> {
+        guard let url = URL(string: endpointURL) else {
+            return Fail(error: ServiceError.quoteServiceURLNotAvailable).eraseToAnyPublisher()
         }
         
         return URLSession.shared.dataTaskPublisher(for: url)
