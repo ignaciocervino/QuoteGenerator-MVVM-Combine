@@ -14,8 +14,8 @@ protocol QuoteViewModelInputs {
 }
 
 protocol QuoteViewModelOutputs {
-    var quoteResultPublisher: PassthroughSubject<Quote, Error> { get }
-    var toggleRefreshButtonPublisher: PassthroughSubject<Bool, Never> { get }
+    var quoteResultPublisher: AnyPublisher<Quote, Error> { get }
+    var toggleRefreshButtonPublisher: AnyPublisher<Bool, Never> { get }
 }
 
 protocol QuoteViewModelProtocol: QuoteViewModelInputs, QuoteViewModelOutputs {}

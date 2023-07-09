@@ -16,16 +16,24 @@ final class QuoteViewModel {
     // MARK: Propierties
     private let quoteService: QuoteServicing
     private var cancellables = Set<AnyCancellable>()
+    private let quoteResultSubject: PassthroughSubject<Quote, Error>
+    private let toggleRefreshButtonSubject: PassthroughSubject<Bool, Never>
+
     
     // MARK: Outputs
-    let quoteResultPublisher: PassthroughSubject<Quote, Error>
-    let toggleRefreshButtonPublisher: PassthroughSubject<Bool, Never>
-    
+    var quoteResultPublisher: AnyPublisher<Quote, Error> {
+        quoteResultSubject.eraseToAnyPublisher()
+    }
+
+    var toggleRefreshButtonPublisher: AnyPublisher<Bool, Never> {
+        toggleRefreshButtonSubject.eraseToAnyPublisher()
+    }
+
     // MARK: Initializer
     init(quoteService: QuoteServicing) {
         self.quoteService = quoteService
-        self.quoteResultPublisher = PassthroughSubject<Quote, Error>()
-        self.toggleRefreshButtonPublisher = PassthroughSubject<Bool, Never>()
+        self.quoteResultSubject = PassthroughSubject<Quote, Error>()
+        self.toggleRefreshButtonSubject = PassthroughSubject<Bool, Never>()
     }
 }
 
@@ -47,16 +55,16 @@ extension QuoteViewModel {
     private func handleGetRandomQuote() {
         quoteService.getRandomQuote(from: Constants.endpointURL).sink { [weak self] completion in
             if case .failure(let error) = completion {
-                self?.quoteResultPublisher.send(completion: .failure(error))
+                self?.quoteResultSubject.send(completion: .failure(error))
             }
         } receiveValue: { [weak self] quote in
-            self?.quoteResultPublisher.send(quote)
+            self?.quoteResultSubject.send(quote)
             self?.toggleRefreshButton(isEnabled: true)
         }
         .store(in: &cancellables)
     }
     
     private func toggleRefreshButton(isEnabled: Bool) {
-        toggleRefreshButtonPublisher.send(isEnabled)
+        toggleRefreshButtonSubject.send(isEnabled)
     }
 }
